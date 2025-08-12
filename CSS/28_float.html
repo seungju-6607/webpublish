@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Float</title>
+    <style>
+        .box-group {
+            border: 1px solid red;
+            overflow: hidden;
+        }
+        .box-group > div {
+            width: 100px;
+            height: 100px;
+            background-color: aquamarine;
+            text-align: center;
+            border: 1px solid blue;
+            float: left;
+            margin: 0 10px;
+        }
+        .box-group > p {
+            clear: both;    /* float는 clear와 함께*/
+        }
+        .menu-group {
+            border: 1px solid blue;
+            overflow: hidden;
+            background-color: navy;
+            padding: 0;
+            margin: 20px 0;
+        }
+        .menu-group > ul {  
+            padding: 0; margin: 0;
+        } 
+        .menu-group > ul > li {  
+            list-style: none;
+            float:left;
+            margin-right: 20px;
+            padding: 10px 0 5px 0;
+        } 
+        .menu-group > ul > li > a {
+            color: white;
+            text-decoration: none;
+        }
+      .img-group > img {
+        width: 200px;
+        float: left;
+        margin-right: 30px;
+      }
+
+      .img-group2{ clear: both;}
+      .img-group2 > img {
+        width: 100px;
+        margin-top: 20px;
+      }
+      .img-group2 > p {
+        width: 50%;
+        display: inline-block;
+        vertical-align: top ;
+      }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+    <h1>Float Style - 블록 레벨의 태그를 한줄로 정렬</h1>
+    <div class="box-group">
+        <div>box1</div>
+        <div>box2</div>
+        <div>box3</div>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+             Dolorem accusantium quisquam optio numquam,
+             id similique totam vitae! Tenetur sint fugiat rem ipsam vel minima ea illo, 
+             odio aliquam neque laudantium.</p>
+    </div> 
+
+    <nav class="menu-group">
+        <ul>
+            <li>
+                <a href="#"><i class="fa-brands fa-instagram"></i>인스타그램</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa-brands fa-youtube"></i>유튜브</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa-brands fa-facebook"></i>페이스북</a>
+            </li>
+        </ul>
+    </nav> 
+    <div style="color: black;">컨텐츠 추가!!</div>
+    <div class="img-group">
+        <img src="../HTML/images/이미지1.jpg" alt="">
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+         Nam quisquam dicta a fuga sapiente eum nemo repellat nostrum minima laudantium, 
+        enim, asperiores laborum. Odit, nemo. At molestiae omnis quae eligendi?</p>
+    </div>
+
+    <div class="img-group2">
+        <img src="../HTML/images/이미지2.jpg" alt="">
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+         Nam quisquam dicta a fuga sapiente eum nemo repellat nostrum minima laudantium, 
+        enim, asperiores laborum. Odit, nemo. At molestiae omnis quae eligendi?</p>
+    </div>
+
+</body>
+</html>
