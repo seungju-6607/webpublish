@@ -9,7 +9,7 @@ export function singleGugudan(dan) {
 
 export function multiGugudan(start, end) {
     for(let i = 1; i<= 9; i++) {
-        let row = '';
+        let rows = '';
         for(let j=start; j<=end; j++) {
             rows += `${j}*${i} = ${i*j}\t`;
         }
