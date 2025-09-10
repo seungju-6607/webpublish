@@ -16,7 +16,7 @@ export function Counter({click, total}) {
         } else setNumber(0);
     }
     const handleClickInit = () => {
-        setNumber(0);      
+        click(0);      
     }
 
     return (
