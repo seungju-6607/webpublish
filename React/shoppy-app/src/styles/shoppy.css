@@ -1,0 +1,148 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px;
+  background: #e6e6e6;
+  border-bottom: 1px solid #ccc;
+}
+
+.logo a {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #e94e77;
+  display: flex;
+  align-items: center;
+}
+
+.logo a::before {
+  content: "🛍️";
+  margin-right: 6px;
+  font-size: 1.4rem;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.nav a {
+  font-size: 0.95rem;
+  color: #333;
+  padding: 6px 10px;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nav a:hover {
+  background: #ddd;
+  color: #e94e77;
+}
+
+.cart-icon {
+  font-size: 1.3rem;
+  color: red;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.nav .btn {
+  padding: 5px 12px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  background: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.nav .btn:hover {
+  background: #e94e77;
+  color: #fff;
+  border-color: #e94e77;
+}
+
+.banner {
+  width: 100%;
+  text-align: center;
+  padding: 30px 10px;
+  background: linear-gradient(to bottom, #333, #fff);
+  color: #111;
+}
+
+.banner h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 0 0 10px;
+}
+
+.banner p {
+  font-size: 1rem;
+  color: #444;
+}
+
+.products {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+.products h2 {
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+}
+
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  justify-items: center;
+}
+
+.product-item {
+  width: 220px;
+  height: 300px;
+  background: #fdfdfd;
+  border: 1px solid #eee;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.product-item:hover {
+  transform: translateY(-5px);
+}
+
+.product-item img {
+  width: 180px;
+  height: 220px;
+  object-fit: contain;
+  margin: 0 auto 10px;
+  display: block;
+}
+
+.product-item p {
+  margin: 5px 0;
+  font-weight: 500;
+}
+
+.product-item span {
+  display: block;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.footer {
+  margin-top: 50px;
+  padding: 25px 20px;
+  background: #444;
+  color: #ddd;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  text-align: center;
+}
