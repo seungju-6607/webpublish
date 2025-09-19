@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
+import { useCart } from "../context/CartContext.jsx";
 
 export default function Layout({ children }) {
+  const { toast } = useCart();
+
   return (
     <div className="layout">
       <header className="header">
@@ -10,15 +13,22 @@ export default function Layout({ children }) {
         </h1>
         <nav className="nav">
           <Link to="/products">Products</Link>
-          <FaShoppingCart className="cart-icon" />
+          <Link to="/cart">
+            <FaShoppingCart className="cart-icon" />
+          </Link>
           <Link to="/login" className="btn">Login</Link>
           <Link to="/signup" className="btn">Signup</Link>
         </nav>
       </header>
+
       <main className="main">{children}</main>
+
       <footer className="footer">
         <p>© 2025 Shoppy. All rights reserved.</p>
       </footer>
+
+      {/* ✅ Toast 알림 표시 */}
+      {toast && <div className="toast">{toast}</div>}
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../styles/auth.css";
 
 export default function Login() {
   const [form, setForm] = useState({ id: "", password: "" });
@@ -14,25 +15,27 @@ export default function Login() {
   };
 
   return (
-    <section className="login">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="id"
-          placeholder="아이디"
-          value={form.id}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="비밀번호"
-          value={form.password}
-          onChange={handleChange}
-        />
-        <button type="submit">로그인</button>
-      </form>
-    </section>
+    <div className="auth-container">
+      <div className="auth-box">
+        <h2>로그인</h2>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="id"
+            placeholder="아이디"
+            value={form.id}
+            onChange={handleChange}
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="비밀번호"
+            value={form.password}
+            onChange={handleChange}
+          />
+          <button type="submit">로그인</button>
+        </form>
+      </div>
+    </div>
   );
 }

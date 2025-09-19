@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../styles/auth.css";
 
 export default function Signup() {
   const [form, setForm] = useState({ id: "", password: "", email: "" });
@@ -14,32 +15,34 @@ export default function Signup() {
   };
 
   return (
-    <section className="signup">
-      <h2>Signup</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="id"
-          placeholder="아이디"
-          value={form.id}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="비밀번호"
-          value={form.password}
-          onChange={handleChange}
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="이메일"
-          value={form.email}
-          onChange={handleChange}
-        />
-        <button type="submit">회원가입</button>
-      </form>
-    </section>
+    <div className="auth-container">
+      <div className="auth-box">
+        <h2>회원가입</h2>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="id"
+            placeholder="아이디"
+            value={form.id}
+            onChange={handleChange}
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="비밀번호"
+            value={form.password}
+            onChange={handleChange}
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="이메일"
+            value={form.email}
+            onChange={handleChange}
+          />
+          <button type="submit">회원가입</button>
+        </form>
+      </div>
+    </div>
   );
 }
