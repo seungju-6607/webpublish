@@ -1,101 +1,126 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { useCart } from "../context/CartContext.jsx";
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { axiosData } from '../utils/dataFetch.js';
+import { PiGiftThin } from 'react-icons/pi';
+import { ImageList } from '../components/commons/ImageList.jsx';
+import { StarRating } from '../components/commons/StarRating.jsx';
+import { Detail } from '../components/detailTabs/Detail.jsx';
+import { Review } from '../components/detailTabs/Review.jsx';
+import { QnA } from '../components/detailTabs/QnA.jsx';
+import { Return } from '../components/detailTabs/Return.jsx';
 
-export default function ProductDetail() {
-  const { id } = useParams();
-  const [product, setProduct] = useState(null);
-  const [size, setSize] = useState("XS");
-  const [activeTab, setActiveTab] = useState("detail");
-  const { addToCart } = useCart();
+export function ProductDetail({ addCart }) {
+    const {pid} = useParams();  // { pid: 1}
+    const [product, setProduct] = useState({});
+    const [size, setSize] = useState('XS');
+    const [imgList, setImgList] = useState([]);
+    const tabLabels = ['DETAIL', 'REVIEW', 'Q&A', 'RETURN & DELIVERY'];
+    const [tabName, setTabName] = useState('detail');
+    const tabEventNames = ['detail', 'review', 'qna', 'return'];
 
-  useEffect(() => {
-    axios.get("/data/products.json")
-      .then((res) => {
-        const found = res.data.find((p) => p.pid === id);
-        setProduct(found);
-      })
-      .catch((err) => console.error(err));
-  }, [id]);
 
-  if (!product) return <p>상품을 불러오는 중...</p>;
+    useEffect(()=> {
+        const filterData = async () => {
+            const jsonData = await axiosData("/data/products.json");
+            const [filterProduct] = await jsonData.filter((item) => item.pid === pid);
+            setProduct(filterProduct); 
+            setImgList(filterProduct.imgList);                
+        }
+        filterData();
+    }, []);
 
-  return (
-    <div className="product-detail">
-      <div className="detail-top">
-        <div className="detail-left">
-          <img className="main-img" src={product.image} alt={product.name} />
-          <div className="thumbnail-list">
-            {product.imgList.map((img, idx) => (
-              <img key={idx} src={img} alt={`thumb-${idx}`} />
-            ))}
-          </div>
-        </div>
-        <div className="detail-right">
-          <h2>{product.name}</h2>
-          <p className="price">{product.price.toLocaleString()}원</p>
-          <p className="desc">{product.info}</p>
-          <div className="rating">⭐ 4.2 (572개 리뷰)</div>
+    //쇼핑백 추가하기 함수
+    const handleAddCartItem = () => {
+        // alert("상품이 카트에 추가되었습니다.");
+        const cartItem = {
+            pid: product.pid,
+            size: size,
+            qty: 1
+        }
+        addCart(cartItem);
+    }
+    
 
-          <div className="size-select">
-            <label>사이즈</label>
-            <select value={size} onChange={(e) => setSize(e.target.value)}>
-              <option>XS</option>
-              <option>S</option>
-              <option>M</option>
-              <option>L</option>
-            </select>
-          </div>
-
-          <div className="detail-buttons">
-            <button className="buy">바로 구매</button>
-            <button className="cart" onClick={() => addToCart(product)}>쇼핑백 담기</button>
-            <button className="gift">선물하기</button>
-          </div>
-        </div>
-      </div>
-
-      <div className="detail-tabs">
-        <button onClick={() => setActiveTab("detail")} className={activeTab === "detail" ? "active" : ""}>DETAIL</button>
-        <button onClick={() => setActiveTab("review")} className={activeTab === "review" ? "active" : ""}>REVIEW</button>
-        <button onClick={() => setActiveTab("qa")} className={activeTab === "qa" ? "active" : ""}>Q&A</button>
-        <button onClick={() => setActiveTab("delivery")} className={activeTab === "delivery" ? "active" : ""}>RETURN & DELIVERY</button>
-      </div>
-
-      <div className="tab-content">
-        {activeTab === "detail" && (
-          <div>
-            <div className="info-box">
-              <p>상품에 대한 안내 문구가 들어갑니다.</p>
+    return (
+        <div className="content">
+            <div className='product-detail-top'>
+                <div className='product-detail-image-top'>
+                    <img src={product.image} />
+                    <ImageList  className="product-detail-image-top-list"
+                                imgList={imgList}/>
+                </div>
+                <ul className='product-detail-info-top'>
+                    <li className='product-detail-title'>{product.name}</li>
+                    <li className='product-detail-title'>
+                        {`${parseInt(product.price).toLocaleString()}원`}
+                        {/* {parseInt(product.price).toLocaleString()}원 */}
+                    </li>
+                    <li className='product-detail-subtitle'>{product.info}</li>
+                    <li className='product-detail-subtitle-star'>
+                        <StarRating  totalRate={product.rate}
+                                     style="star-coral"
+                                />
+                        <span>527개 리뷰 &nbsp;&nbsp; {">"} </span>
+                    </li>
+                    <li>
+                        <p className='product-detail-box'>신규회원, 무이자할부 등</p>
+                    </li>
+                    <li className='flex'>
+                        <button className='product-detail-button size'>사이즈</button>
+                        <select
+                            className="product-detail-select2"
+                            onChange={(e) => setSize(e.target.value)}
+                            >
+                            <option value="XS">XS</option>
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                        </select>
+                    </li>
+                    <li className="flex">
+                        <button type="button" 
+                                className="product-detail-button order">바로 구매</button>
+                        <button type="button"
+                                className="product-detail-button cart"
+                                onClick={handleAddCartItem}
+                                > 쇼핑백 담기</button>
+                        <div type="button" className="gift">
+                            <PiGiftThin />
+                            <div className="gift-span">선물하기</div>
+                        </div>
+                    </li>
+                    <li>
+                        <ul className='product-detail-summary-info'>
+                            <li>상품 요약 정보</li>
+                        </ul>
+                    </li>               
+                </ul>
             </div>
-            {product.imgList.map((img, idx) => (
-              <img key={idx} src={img} alt={`detail-${idx}`} className="detail-img" />
-            ))}
-          </div>
-        )}
 
-        {activeTab === "review" && (
-          <div className="reviews">
-            <h3>상품 리뷰 (총 572개)</h3>
-            <div className="review-item">★★★★★ 아주 좋아요</div>
-            <div className="review-item">★★★★ 만족해요</div>
-            <div className="review-item">★★★ 보통이에요</div>
-          </div>
-        )}
+            <div className='product-detail-tab'>
+                <ul className='tabs'>
+                    { tabLabels && tabLabels.map((label, i) => 
+                        <li className={tabName === tabEventNames[i]? "active": "" }>
+                            <button type="button"
+                                    onClick={()=> setTabName(tabEventNames[i])}
+                                >{label}</button>
+                        </li>
+                    )}
+                </ul>
 
-        {activeTab === "qa" && (
-          <div className="qa">
-            <p>Q&A 게시판 준비중입니다.</p>
-          </div>
-        )}
+                {tabName === "detail" 
+                                &&  <Detail imgList={imgList} 
+                                            info={product.detailInfo}       />}
+                {tabName === "review" &&  <Review />}
+                {tabName === "qna" &&  <QnA />}
+                {tabName === "return" &&  <Return />}
 
-        {activeTab === "delivery" && (
-          <div className="delivery">
-            <p>교환/반품/배송 안내</p>
-          </div>
-        )}
-      </div>
-    </div>
-  );
+            </div>
+            <div style={{marginBottom:"50px"}}></div>
+        </div>
+
+        
+    );
 }
+
