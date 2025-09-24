@@ -3,7 +3,8 @@
  */
 export function Menu({title, color, bg, href}) {
     return (
-        <a href="#" className="menu" style={{ color: color, background: bg }}>{title}
-        </a>
+        <a  href={href}
+            className="menu"
+            style={{color:color, background:bg}}>{title}</a>
     );
 }

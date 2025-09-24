@@ -71,3 +71,9 @@ export function BestProductItem({item, cartCount}) {
             </div>        
     );
 }
+
+
+
+
+
+

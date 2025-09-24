@@ -1,4 +1,4 @@
-import { useEffect, useState ,useRef} from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { fetchKobisAPI, searchMoviePoster } from '../util/commonData.js';
 import { BestProductImage } from './shared/BestProductImage.jsx';
 import { BestProductItem } from './BestProduct.jsx';
@@ -6,12 +6,13 @@ import { BestProductItem } from './BestProduct.jsx';
 export function Boxoffice() {
     const [list, setList] = useState([]);
     const hasRun = useRef(false);
+
     useEffect(()=>{
-        if(!hasRun. current) {
+        if(!hasRun.current) {
         const fetchKobis = async () => {
             const kobis = await fetchKobisAPI("20250910");
             const mlist = kobis.boxOfficeResult.dailyBoxOfficeList;
-        
+            
             for(const movie of mlist) {
                 if(movie.rank !== "10") {  //API는 무조건 문자열
                     const poster = await searchMoviePoster(movie.movieNm, movie.openDt);
@@ -33,10 +34,11 @@ export function Boxoffice() {
                     setList(prev => [...prev, posterObj]); 
                 }
             }
-        }
+        }        
         fetchKobis();
+
         hasRun.current = true;
-    }        
+        }
     }, []);
 
     return (
